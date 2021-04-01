@@ -3,6 +3,7 @@ import Image from './Image.js'
 import { useState } from 'react'
 import ColoredLine from './ColoredLine.js'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { render } from 'react-dom'
 
 
 function App() {
@@ -46,16 +47,24 @@ function App() {
                 )} />
                 <Route path='/' />
 
-                <Route exact render={(props) => (//this is the route for all of the links shown on the campaigns page
-                    < h1 style={{ color: 'red' }}> {getURL()} </h1>
+
+                <Route path='/Home' exact render={(props) => (//this is the route for all of the links shown on the campaigns page
+                    <h1> </h1>
                 )} />
-                <Route path='/home' />
+                <Route path='/Home' />
+
+                <Route exact render={(props) => (//this is the route for all of the links shown on the campaigns page
+                    renderCampaign(getAddress())
+                )} />
+                <Route path='/' />
                 
             </div>
         </Router>
     );
 }
-
+function getAddress() {
+    return window.location.href
+}
 function getURL() {
     let currentURL = window.location.href.substring(22).replace(/%/g, ' ').replace(/20/g, '')//magic number of 22 will have to be changed later
     if (currentURL.includes("Campaign/")) {
@@ -64,11 +73,75 @@ function getURL() {
     return currentURL
 }
 
-function getCampaignAttributes() {
-    for (var i = 0; i < JSONDATA.map.length; i++) {
+function getCampaignID() {
+    for (var i = 0; i < JSONDATA.length; i++) {
         if (JSONDATA[i].campaign == getURL()) {
-            return JSONDATA[i];
+            return JSONDATA[i].id;
         }
+    }
+}
+
+function getCampaignCampaign() {
+    for (var i = 0; i < JSONDATA.length; i++) {
+        if (JSONDATA[i].campaign == getURL()) {
+            return JSONDATA[i].campaign;
+        }
+    }
+}
+
+function getCampaignPFP() {
+    for (var i = 0; i < JSONDATA.length; i++) {
+        if (JSONDATA[i].campaign == getURL()) {
+            return JSONDATA[i].PFP;
+        }
+    }
+}
+
+function getCampaignIP() {
+    for (var i = 0; i < JSONDATA.length; i++) {
+        if (JSONDATA[i].campaign == getURL()) {
+            return JSONDATA[i].ip_address;
+        }
+    }
+}
+
+function getCampaignDescription() {
+    for (var i = 0; i < JSONDATA.length; i++) {
+        if (JSONDATA[i].campaign == getURL()) {
+            return JSONDATA[i].Description;
+        }
+    }
+}
+
+function renderCampaign(props) {
+    if (props.includes('donate') || props.includes('Home') || props.includes('Create')) {
+        if (props.includes('donate')) {
+            return (
+                <h1>Donate</h1>
+            )
+        }
+        if (props.includes('Home')) {
+            return (
+                <h1>Home</h1>
+            )
+        }
+        if (props.includes('Create')) {
+            return (
+                <h1>Create</h1>
+            )
+        }
+    }
+    else {
+        return (
+            <>
+                <Image img={getCampaignPFP()} />
+                < h1 style={{ color: 'red' }}>  {getCampaignCampaign()}</h1>
+                < h2 style={{ color: 'green' }}>  {getCampaignID()}</h2>
+                < h3 style={{ color: 'blue' }}>  {getCampaignIP()}</h3>
+                < p style={{ color: 'yellow' }}>  {getCampaignDescription()}</p>
+                <a href={getAddress() + '/donate'}>Click to donate</a>
+            </>
+        )
     }
 }
 export default App;
