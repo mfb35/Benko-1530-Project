@@ -1,4 +1,4 @@
-import emailjs from 'emailjs-com'
+import emailjs from 'emailjs-com'//this file is incomplete and is confusing me. This is where the actual email sending componant would be implemented. Users emails are found in the json array
 
 const Message = () => {
     function sendEmail(e) {

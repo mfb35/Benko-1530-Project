@@ -1,4 +1,4 @@
-const ColoredLine = ({ color }) => (
+const ColoredLine = ({ color }) => ( //this file is represents a colored line componant in a react project
     <hr
         style={{
             color: color,
