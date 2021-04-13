@@ -1,8 +1,6 @@
 import JSONDATA from './MOCK_DATA.json'
 import { useState } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'                                                       //must install with, npm install --save react-router-dom
-import Message from './Message.js'
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify'                                                                                  //must instal with, npm intsall react-toastify --save
 import 'react-toastify/dist/ReactToastify.css'
 
 toast.configure()                                                                                                       //this sets up the copied notification
@@ -13,9 +11,7 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
     return (
-    <Router>
         <div className="App">
-            <Route path='/' exact render={(props) => (
                 <>
                         <h1 style={{ color: 'red' }}>CharityDrop Contact User:</h1>                                     {/* this is the header to the messenger page*/}
                                                                                                                         {/* this is the search bar*/}
@@ -53,11 +49,7 @@ function App() {
                             );
                         })}
                 </>
-            )}  />
-
-        <Route path='/message' component={Message} />
         </div>
-    </Router>
   );
 }
 
